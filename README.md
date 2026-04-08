@@ -26,8 +26,8 @@ Check out the results [here].
 ## Resources
 
 - [Current documentation](https://www.archivematica.org/en/docs/latest/dev-manual/api/api-reference-archivematica/) - not entirely accurate.
-- [Legacy documentattion](https://wiki.archivematica.org/Archivematica_API) - abandoned, outdated.
-- [Dashboard API Django app](https://github.com/artefactual/archivematica/tree/qa/1.x/src/dashboard/src/components/api) - the source code!
+- [Legacy documentaton](https://wiki.archivematica.org/Archivematica_API) - abandoned, outdated.
+- [Dashboard API Django app](https://github.com/artefactual/archivematica/tree/qa/1.x/src/archivematica/dashboard/components/api) - the source code!
 
 [here]: https://editor.swagger.io/?url=https://raw.githubusercontent.com/artefactual-labs/archivematica-api-specification/main/typespec/tsp-output/%40typespec/openapi3/openapi.v1.yaml
 [TypeSpec.io]: https://typespec.io
