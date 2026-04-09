@@ -12,8 +12,7 @@ Although the Archivematica API design may not always adhere to best practices,
 we hope this repository provides a detailed and transparent desription of these
 imperfections.
 
-The Archivematica Storage Service API specification is also available. Please
-visit this [link][ssclient-go].
+The [Archivematica Storage Service API] specification is also available.
 
 ## Usage
 
@@ -29,6 +28,6 @@ Check out the results [here].
 - [Legacy documentaton](https://wiki.archivematica.org/Archivematica_API) - abandoned, outdated.
 - [Dashboard API Django app](https://github.com/artefactual/archivematica/tree/qa/1.x/src/archivematica/dashboard/components/api) - the source code!
 
-[here]: https://editor.swagger.io/?url=https://raw.githubusercontent.com/artefactual-labs/archivematica-api-specification/main/typespec/tsp-output/%40typespec/openapi3/openapi.v1.yaml
+[here]: https://editor.swagger.io/?url=https://raw.githubusercontent.com/archivematica/archivematica-api-specification/main/typespec/tsp-output/%40typespec/openapi3/openapi.v1.yaml
 [TypeSpec.io]: https://typespec.io
-[ssclient-go]: https://github.com/artefactual-labs/ssclient-go/tree/main/typespec
+[Archivematica Storage Service API]: https://github.com/archivematica/archivematica-storage-service-api-specification
