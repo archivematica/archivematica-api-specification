@@ -2,7 +2,16 @@ openapi: 3.0.0
 info:
   title: Archivematica
   version: v1
-tags: []
+tags:
+  - name: Transfer
+  - name: Ingest
+  - name: Filesystem
+  - name: Administration
+  - name: Processing Configuration
+  - name: Packages
+  - name: Jobs
+  - name: Tasks
+  - name: Validation
 paths:
   /api/administration/dips/atom/fetch_levels/:
     get:
@@ -36,6 +45,8 @@ paths:
                   error:
                     type: string
                 description: ''
+      tags:
+        - Administration
   /api/filesystem/administration/dips/atom/levels/:
     get:
       operationId: Filesystem_listLevelsOfDescription
@@ -52,6 +63,8 @@ paths:
                   type: object
                   additionalProperties:
                     $ref: '#/components/schemas/uuid'
+      tags:
+        - Filesystem
   /api/filesystem/metadata:
     get:
       operationId: Filesystem_readMetadata
@@ -77,6 +90,8 @@ paths:
                   - level_of_description
         '404':
           description: The server cannot find the requested resource.
+      tags:
+        - Filesystem
     post:
       operationId: Filesystem_updateMetadata
       description: Update metadata for a path (currently only level of descrption).
@@ -90,6 +105,8 @@ paths:
                 $ref: '#/components/schemas/Success'
         '404':
           description: The server cannot find the requested resource.
+      tags:
+        - Filesystem
       requestBody:
         required: true
         content:
@@ -127,6 +144,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Ingest
   /api/ingest/copy_metadata_files:
     post:
       operationId: Ingest_copyMetadataFiles
@@ -180,6 +199,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Ingest
       requestBody:
         required: true
         content:
@@ -222,6 +243,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotRemoved'
+      tags:
+        - Ingest
   /api/ingest/reingest:
     post:
       operationId: Ingest_reingest
@@ -266,6 +289,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Ingest
       requestBody:
         required: true
         content:
@@ -317,6 +342,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Ingest
       requestBody:
         required: true
         content:
@@ -361,6 +388,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Ingest
   /api/ingest/waiting:
     get:
       operationId: Ingest_listWaiting
@@ -384,6 +413,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Ingest
   /api/ingest/{id}/delete:
     post:
       operationId: Ingest_delete
@@ -415,6 +446,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotRemoved'
+      tags:
+        - Ingest
   /api/processing-configuration:
     get:
       operationId: ProcessingConfiguration_list
@@ -429,6 +462,8 @@ paths:
                 type: array
                 items:
                   type: string
+      tags:
+        - Processing Configuration
   /api/processing-configuration/{name}:
     get:
       operationId: ProcessingConfiguration_read
@@ -489,6 +524,8 @@ paths:
                   error:
                     type: string
                 description: ''
+      tags:
+        - Processing Configuration
     delete:
       operationId: ProcessingConfiguration_delete
       description: Deletes the processing configuration with the given name.
@@ -521,6 +558,8 @@ paths:
                   error:
                     type: string
                 description: ''
+      tags:
+        - Processing Configuration
   /api/transfer/approve:
     post:
       operationId: Transfer_approve
@@ -549,6 +588,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Transfer
       requestBody:
         required: true
         content:
@@ -589,6 +630,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Transfer
   /api/transfer/delete:
     delete:
       operationId: Transfer_deleteAll
@@ -615,6 +658,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotRemoved'
+      tags:
+        - Transfer
   /api/transfer/reingest:
     post:
       operationId: Transfer_reingest
@@ -659,6 +704,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Transfer
       requestBody:
         required: true
         content:
@@ -701,6 +748,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Transfer
       requestBody:
         required: true
         content:
@@ -771,6 +820,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Transfer
   /api/transfer/unapproved:
     get:
       operationId: Transfer_listUnapproved
@@ -794,6 +845,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Transfer
   /api/transfer/{id}/delete:
     post:
       operationId: Transfer_delete
@@ -825,6 +878,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotRemoved'
+      tags:
+        - Transfer
   /api/v2beta/jobs/{id}:
     get:
       operationId: Jobs_list
@@ -889,6 +944,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Jobs
   /api/v2beta/package:
     post:
       operationId: Packages_create
@@ -917,6 +974,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Packages
       requestBody:
         required: true
         content:
@@ -956,6 +1015,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Tasks
   /api/v2beta/validate/{validator}:
     post:
       operationId: Validate_create
@@ -1002,6 +1063,8 @@ paths:
                   message:
                     type: string
                 description: ''
+      tags:
+        - Validation
       requestBody:
         required: true
         content:

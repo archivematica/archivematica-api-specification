@@ -23,6 +23,7 @@ namespace Service {
 
     @route("/")
     namespace V1 {
+        @tag("Transfer")
         @route("/transfer")
         namespace Transfer {
             @doc("Approve a transfer.")
@@ -130,6 +131,7 @@ namespace Service {
             op delete(@path id: uuid): Removed | NotRemoved | Response<400>;
         }
 
+        @tag("Ingest")
         @route("/ingest")
         namespace Ingest {
             @doc("List SIPs waiting for user input..")
@@ -211,6 +213,7 @@ namespace Service {
             ): OKResponse | ErrorResponse<400 | 500>;
         }
 
+        @tag("Filesystem")
         @route("/filesystem")
         namespace Filesystem {
             @doc("List all levels of description configured.")
@@ -248,6 +251,7 @@ namespace Service {
             };
         }
 
+        @tag("Administration")
         @route("/administration")
         namespace Administration {
             @doc("Fetches all levels of description from an AtoM datatabase, replacing any previously existing.")
@@ -262,6 +266,7 @@ namespace Service {
             body: Record<uuid>[];
         }
 
+        @tag("Processing Configuration")
         @route("/processing-configuration")
         namespace ProcessingConfiguration {
             @doc("Lists known processing configurations.")
@@ -305,6 +310,7 @@ namespace Service {
 
     @route("/v2beta")
     namespace V2Beta {
+        @tag("Packages")
         @route("/package")
         namespace Packages {
             @doc("Starts a new transfer.")
@@ -329,6 +335,7 @@ namespace Service {
             }
         }
 
+        @tag("Jobs")
         @route("/jobs")
         namespace Jobs {
             @doc("Return a list of jobs for the given package.")
@@ -385,6 +392,7 @@ namespace Service {
             }
         }
 
+        @tag("Tasks")
         @route("/task")
         namespace Tasks {
             @doc("Return information about a task.")
@@ -409,6 +417,7 @@ namespace Service {
             }
         }
 
+        @tag("Validation")
         @route("/validate")
         namespace Validate {
             @doc("""
