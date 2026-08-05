@@ -949,11 +949,26 @@ paths:
   /api/v2beta/package:
     post:
       operationId: Packages_create
-      description: Starts a new transfer.
-      parameters: []
+      description: |-
+        Starts a new transfer.
+
+        When an idempotency key is supplied, retrying the same request with
+        the same authenticated user and key returns the original transfer ID
+        instead of starting another transfer.
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: false
+          description: |-
+            Makes retries idempotent. The key is scoped to the authenticated
+            user and this operation. Reuse the same key only for an identical
+            request. Keys expire after the configured retention period, which
+            is 90 days by default.
+          schema:
+            $ref: '#/components/schemas/IdempotencyKey'
       responses:
-        '201':
-          description: The request has succeeded and a new resource has been created as a result.
+        '202':
+          description: The request has been accepted for processing, but processing has not yet completed.
           content:
             application/json:
               schema:
@@ -974,6 +989,22 @@ paths:
                   message:
                     type: string
                 description: ''
+        '409':
+          description: |-
+            A request using this idempotency key is still in progress. Retry
+            later with the same key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Beta.Packages.IdempotencyRequestInProgressResponse'
+        '422':
+          description: |-
+            This idempotency key was already used with a different request. Use
+            the original request or a new key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Beta.Packages.IdempotencyKeyReusedResponse'
       tags:
         - Packages
       requestBody:
@@ -1095,6 +1126,12 @@ components:
           default: true
         message:
           type: string
+    IdempotencyKey:
+      type: string
+      minLength: 1
+      maxLength: 255
+      pattern: ^[!-~]+$
+      description: A client-generated key containing 1-255 visible ASCII characters without whitespace.
     NotRemoved:
       type: object
       required:
@@ -1355,6 +1392,34 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/uuid'
+    V2Beta.Packages.IdempotencyKeyReusedResponse:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: boolean
+          default: true
+        message:
+          type: string
+      description: |-
+        This idempotency key was already used with a different request. Use
+        the original request or a new key.
+    V2Beta.Packages.IdempotencyRequestInProgressResponse:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: boolean
+          default: true
+        message:
+          type: string
+      description: |-
+        A request using this idempotency key is still in progress. Retry
+        later with the same key.
     V2Beta.Tasks.Task:
       type: object
       required:

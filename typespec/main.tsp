@@ -313,12 +313,45 @@ namespace Service {
         @tag("Packages")
         @route("/package")
         namespace Packages {
-            @doc("Starts a new transfer.")
+            @doc("""
+            Starts a new transfer.
+
+            When an idempotency key is supplied, retrying the same request with
+            the same authenticated user and key returns the original transfer ID
+            instead of starting another transfer.
+            """)
             @post
-            op create(@body request: CreatePackageRequest): {
-                @statusCode _: 201;
-                @body response: CreatePackageResponse;
-            } | ErrorResponse<400>;
+            op create(
+                @doc("""
+                Makes retries idempotent. The key is scoped to the authenticated
+                user and this operation. Reuse the same key only for an identical
+                request. Keys expire after the configured retention period, which
+                is 90 days by default.
+                """)
+                @header("Idempotency-Key")
+                idempotencyKey?: IdempotencyKey,
+
+                @body request: CreatePackageRequest,
+            ):
+                | {
+                      @statusCode _: 202;
+                      @body response: CreatePackageResponse;
+                  }
+                | ErrorResponse<400>
+                | IdempotencyRequestInProgressResponse
+                | IdempotencyKeyReusedResponse;
+
+            @doc("""
+            A request using this idempotency key is still in progress. Retry
+            later with the same key.
+            """)
+            model IdempotencyRequestInProgressResponse is ErrorResponse<409>;
+
+            @doc("""
+            This idempotency key was already used with a different request. Use
+            the original request or a new key.
+            """)
+            model IdempotencyKeyReusedResponse is ErrorResponse<422>;
 
             model CreatePackageRequest {
                 name: string;

@@ -11,6 +11,12 @@ using TypeSpec.Http;
 )
 scalar uuid extends string;
 
+@doc("A client-generated key containing 1-255 visible ASCII characters without whitespace.")
+@minLength(1)
+@maxLength(255)
+@pattern("^[!-~]+$")
+scalar IdempotencyKey extends string;
+
 @doc("POSIX-compatible exit code: 0 for success and any number from 1 to 255 for anything else.")
 scalar exitCode extends uint8;
 
